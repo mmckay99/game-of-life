@@ -2,7 +2,7 @@ package bbc.codingtests.gameoflife.gamestate;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static junit.framework.Assert.*;
 
 public class GameStateTest {
 
