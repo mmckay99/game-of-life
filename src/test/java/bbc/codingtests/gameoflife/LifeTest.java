@@ -116,4 +116,21 @@ public class LifeTest {
 
 
 	}
+
+	@Test
+	public void testEvolveKnownExample() {
+		// Game Of Life tool at http://www.dcode.fr/game-of-life
+		// used to generate example test case.
+		String knownExampleString = "**.*...\n.**..**\n**.....\n..***.*\n.*.*...\n.......\n.....*.";
+		String expectedOneStepEvolveString = "**.....\n.......\n*...*.*\n*..**..\n...**..\n.......\n.......";
+
+		GameState knownExampleState = new GameStateImpl(knownExampleString);
+		Life life = new LifeImpl();
+
+		String actualOneStepEvolveString = life.evolve(knownExampleState).toString();
+
+		assertEquals("known example evolves correctly",
+				expectedOneStepEvolveString,
+				actualOneStepEvolveString);
+	}
 }

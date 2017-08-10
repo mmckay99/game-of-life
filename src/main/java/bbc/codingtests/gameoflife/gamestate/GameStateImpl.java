@@ -7,8 +7,9 @@ public class GameStateImpl implements GameState {
     private int numberOfRows;
     private int numberOfColumns;
 
-    // The set is keyed by the index of the cell as if the rows were laid out
-    // consecutively in a 1D array: thisIndex = (rowIndex * rowLength) + columnIndex.
+    // The set key is the index of the cell as if all of the rows were laid out
+    // consecutively in a 1D array so longIndex = (rowIndex * rowLength) + columnIndex.
+    // This means a 2D cell location can be checked in nearly constant time.
     private Set<Long> aliveCells;
 
     public String toString() {
@@ -22,7 +23,7 @@ public class GameStateImpl implements GameState {
             stringBuilder.append(cellAlive ? '*' : '.');
 
             // Cells could be stored as consecutive rows, so if the cell index is the last in a row
-            // (index + 1) will be divisible by the number of columns, so we should put a newline,
+            // (index + 1) will be divisible by the number of columns, put a newline,
             // unless it's the last cell.
             if (((cellIndex + 1) % this.numberOfColumns) == 0 && (cellIndex != numberOfCells - 1)) {
                 stringBuilder.append('\n');
@@ -46,6 +47,14 @@ public class GameStateImpl implements GameState {
         this.aliveCells = new HashSet<Long>();
     }
 
+    /**
+     * Creates a new game state based on a string representation of a game of life board.
+     * The string can represent a board having a maximum of Integer.MAX_VALUE rows and columns.
+     *
+     * @param input a string consisting of "." representing an empty cell,
+     *              "*" a living cell, and "\n" a new row. The final row does not
+     *              need to be terminated with a newline.
+     */
     public GameStateImpl(String input) {
         int inputSize = input.length();
 

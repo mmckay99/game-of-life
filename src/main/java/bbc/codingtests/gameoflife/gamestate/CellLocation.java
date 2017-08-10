@@ -51,7 +51,9 @@ public class CellLocation implements Comparable<CellLocation> {
         if (object instanceof CellLocation) {
             CellLocation other = (CellLocation) object;
 
-            return (other.getRow() == row && other.getColumn() == column);
+            boolean b =(other.getRow() == row && other.getColumn() == column);
+
+            return b;
         }
 
         return false;
