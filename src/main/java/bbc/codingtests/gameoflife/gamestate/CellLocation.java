@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * This class represents an immutable cell location.
+ *
  * Created by michael on 09/08/17.
  */
 public class CellLocation implements Comparable<CellLocation> {
-    private int row;
-    private int column;
+    private final int row;
+    private final int column;
 
     public static List<CellLocation> calculateNeighbourLocations(CellLocation location) {
         ArrayList<CellLocation> neighbours = new ArrayList<CellLocation>(8);

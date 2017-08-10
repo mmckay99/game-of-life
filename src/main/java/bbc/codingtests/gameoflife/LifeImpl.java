@@ -25,13 +25,10 @@ public class LifeImpl implements Life {
 		// The scenarios given in the document can be applied
         // by iterating over each position in the old
         // state and calculating its new state.
-
         GameState newState = new GameStateImpl(currentState.getRows(), currentState.getCols());
-
         List<CellLocation> currentAliveCells = currentState.getAllAliveCells();
 
         for (CellLocation aliveCell : currentAliveCells) {
-
             List<CellLocation> neighbourLocations = CellLocation.calculateNeighbourLocations(aliveCell);
 
             // Any cells that might be created will be neighbours of existing living cells. For each

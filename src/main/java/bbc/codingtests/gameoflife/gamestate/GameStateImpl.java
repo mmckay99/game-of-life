@@ -7,17 +7,17 @@ public class GameStateImpl implements GameState {
     private int numberOfRows;
     private int numberOfColumns;
 
-    // The set is keyed by the index of the cell as if the rows
-    // were laid out consecutively in a 1D array: thisIndex = (rowIndex * rowLength) + columnIndex.
+    // The set is keyed by the index of the cell as if the rows were laid out
+    // consecutively in a 1D array: thisIndex = (rowIndex * rowLength) + columnIndex.
     private Set<Long> aliveCells;
 
     public String toString() {
-        // The final string will have a character for each cell (i.e. rows * cols) and 'cols' number
-        // of newline characters.
+        // The final string will have a character for each cell (i.e. rows * cols)
+        // and 'cols' number of newline characters.
         StringBuilder stringBuilder = new StringBuilder(this.numberOfRows * (this.numberOfColumns + 1));
         long numberOfCells = ((long) numberOfColumns) * numberOfRows;
 
-        for (int cellIndex = 0; cellIndex < numberOfCells; ++cellIndex) {
+        for (long cellIndex = 0; cellIndex < numberOfCells; ++cellIndex) {
             boolean cellAlive = aliveCells.contains(cellIndex);
             stringBuilder.append(cellAlive ? '*' : '.');
 
@@ -63,6 +63,11 @@ public class GameStateImpl implements GameState {
         for (int stringIndex = 0; stringIndex < inputSize; ++stringIndex) {
             char currentChar = input.charAt(stringIndex);
 
+            if (currentChar != '\n' && currentChar != '*' && currentChar != '.') {
+                throw new IllegalArgumentException("input string contains invalid character \'"
+                        + currentChar + "\'");
+            }
+
             if (currentChar == '\n') {
                 // Check the length of this row isn't empty.
                 if (currentCellColumn == 0) {
@@ -92,7 +97,7 @@ public class GameStateImpl implements GameState {
     }
 
     public boolean isCellAliveAt(int row, int col) {
-        if (row < 0 || row > this.numberOfRows || col < 0 || col > this.numberOfColumns) {
+        if (row < 0 || row >= this.numberOfRows || col < 0 || col >= this.numberOfColumns) {
             return false;
         } else {
             long longIndex = (row * this.numberOfColumns) + col;
@@ -105,10 +110,7 @@ public class GameStateImpl implements GameState {
     }
 
     public void setCellAliveAt(int row, int col, boolean alive) {
-        if (row < 0 || row > this.numberOfRows || col < 0 || col > this.numberOfColumns) {
-            // If the cell location is beyond the bounds, ignore this call.
-            return;
-        } else {
+        if (!(row < 0 || row >= this.numberOfRows || col < 0 || col >= this.numberOfColumns)) {
             long longIndex = (row * this.numberOfColumns) + col;
 
             if (alive) {

@@ -5,9 +5,9 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static junit.framework.Assert.*;
+import static org.junit.Assert.*;
 
-public class GameStateTest {
+public class GameStateImplTest {
 
     @Test
     public void testParsing() {
@@ -15,6 +15,18 @@ public class GameStateTest {
         GameState testState = new GameStateImpl(input);
         assertTrue("Row 0, col 1 should be alive",testState.isCellAliveAt(0,1));
         assertFalse("Row 2, col 2 should not be alive",testState.isCellAliveAt(2,2));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testParsingErrorCharacter() throws IllegalArgumentException {
+        String input = "...\n*.!\n...";
+        new GameStateImpl(input);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testParsingErrorNonRectangularBoard() {
+        String input = "...\n*.\n...";
+        new GameStateImpl(input);
     }
 
     @Test
@@ -84,15 +96,11 @@ public class GameStateTest {
         assertFalse("cell is not alive", testState.isCellAliveAt(999, 999));
         assertFalse("cell is not alive", testState.isCellAliveAt(7, 50));
 
-        // Test that calls to set cells alive outside the bounds are ignored.
-        try {
-            testState.setCellAliveAt(1001, 2000, true);
-            testState.setCellAliveAt(Integer.MAX_VALUE, 0, true);
-            testState.setCellAliveAt(Integer.MIN_VALUE, Integer.MIN_VALUE, false);
+        // Test that calls to set cells alive outside the bounds are ignored. JUnit
+        // will fail the test if an exception is thrown.
+        testState.setCellAliveAt(1001, 2000, true);
+        testState.setCellAliveAt(Integer.MAX_VALUE, 0, true);
+        testState.setCellAliveAt(Integer.MIN_VALUE, Integer.MIN_VALUE, false);
 
-        } catch (Exception exception) {
-            assertTrue("Calls to set cells outside the bounds of the GameState should be ignored.",
-                    false);
-        }
     }
 }
