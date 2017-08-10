@@ -7,7 +7,6 @@ import bbc.codingtests.gameoflife.gamestate.GameStateImpl;
 import java.util.List;
 
 public class LifeImpl implements Life {
-
     private static int countLivingNeighbours(GameState gameState, CellLocation cellLocation) {
         List<CellLocation> neighbourLocations = CellLocation.calculateNeighbourLocations(cellLocation);
 

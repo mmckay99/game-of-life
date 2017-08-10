@@ -50,10 +50,7 @@ public class GameStateImplTest {
 
         List<CellLocation> aliveCells = testState.getAllAliveCells();
 
-        assertEquals("There should be 4 alive cells.", aliveCells.size(), 4);
-        for (CellLocation aliveCell : aliveCells) {
-            assertTrue("One alive cell is not in the input", inputAliveCells.contains(aliveCell));
-        }
+        assertEquals("There should be 4 alive cells.", aliveCells, inputAliveCells);
     }
 
     @Test
