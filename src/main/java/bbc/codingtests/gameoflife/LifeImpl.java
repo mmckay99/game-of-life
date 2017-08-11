@@ -21,9 +21,6 @@ public class LifeImpl implements Life {
     }
 
 	public GameState evolve(GameState currentState) {
-		// The scenarios given in the document can be applied
-        // by iterating over each position in the old
-        // state and calculating its new state.
         GameState newState = new GameStateImpl(currentState.getRows(), currentState.getCols());
         List<CellLocation> currentAliveCells = currentState.getAllAliveCells();
 
