@@ -20,7 +20,7 @@ public class LifeImpl implements Life {
         return count;
     }
 
-	public GameState evolve(GameState currentState) {
+    public GameState evolve(GameState currentState) {
         GameState newState = new GameStateImpl(currentState.getRows(), currentState.getCols());
         List<CellLocation> currentAliveCells = currentState.getAllAliveCells();
 
@@ -48,5 +48,5 @@ public class LifeImpl implements Life {
         }
 
         return newState;
-	}
+    }
 }
